@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    font-family: 'Courier New', monospace;
+    touch-action: none; /* Blokada gestów systemowych */
+    user-select: none;  /* Blokada zaznaczania tekstu */
+
+    /* Centrowanie gry na PC */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+canvas {
+    background-color: #000011;
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.3);
+    border: 2px solid #333;
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 10;
+    pointer-events: none;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* --- MENU GŁÓWNE --- */
+#menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Idealne centrowanie */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    z-index: 20;
+    padding: 20px; /* Margines wewnętrzny, żeby tekst nie dotykał krawędzi na telefonie */
+    box-sizing: border-box; /* Ważne dla paddingu */
+}
+
+h1 {
+    font-size: 40px;
+    color: #00d2ff;
+    text-shadow: 0 0 20px #00d2ff;
+    margin-bottom: 30px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+#start-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 22px;
+    background: #00d2ff;
+    border: none;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+    transition: transform 0.2s, background 0.2s;
+    width: 80%;
+    max-width: 300px; /* Przycisk nie będzie szerszy niż 300px */
+}
+
+button:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+button:active { transform: scale(0.95); }
+button:disabled { background: #555; box-shadow: none; transform: none; }
+
+input {
+    padding: 12px;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+    background: #111;
+    color: white;
+    border: 1px solid #00d2ff;
+    border-radius: 5px;
+    width: 70%;
+    max-width: 250px;
+}
+
+/* --- LEADERBOARD I ANIMACJE --- */
+#leaderboard {
+    margin-top: 20px;
+    border: 1px solid #444;
+    padding: 15px;
+    width: 90%;          /* Responsywna szerokość */
+    max-width: 350px;    /* Maksymalna szerokość na PC */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+ul { list-style: none; padding: 0; text-align: center; margin: 0; }
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    font-size: 16px;
+    cursor: default;
+    /* Płynne przejścia dla efektu hover */
+    transition: all 0.3s ease;
+    position: relative;
+    background: rgba(0,0,0,0.2);
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+/* EFEKT HOVER: Unoszenie i podświetlenie */
+li:hover {
+    transform: translateY(-5px); /* Idzie do góry */
+    background: rgba(0, 210, 255, 0.15); /* Lekkie niebieskie tło */
+    border-color: #00d2ff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* DATA REKORDU (Ukryta domyślnie) */
+.score-date {
+    display: block;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 0;
+
+    /* Animacja rozwijania */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* EFEKT HOVER: Pokazanie daty */
+li:hover .score-date {
+    max-height: 20px; /* Rozwija się */
+    opacity: 1;       /* Pojawia się */
+    margin-top: 5px;
+}
+
+/* --- RESPONSYWNOŚĆ NA TELEFON (Mobile) --- */
+@media (max-width: 800px) {
+    body {
+        background-color: #000;
+        display: block; /* Usuwamy flexbox, żeby canvas zajął 100% */
+    }
+
+    canvas {
+        border: none;
+        box-shadow: none;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* Skalowanie Menu */
+    h1 { font-size: 28px; margin-bottom: 20px; }
+    button { font-size: 18px; padding: 12px; }
+    #ui { top: 10px; left: 10px; font-size: 16px; }
+
+    /* Leaderboard na małym ekranie */
+    #leaderboard {
+        width: 95%; /* Szerszy na telefonie */
+        padding: 10px;
+    }
+
+    /* Na telefonie hover działa przy kliknięciu/dotknięciu */
+    li:active {
+        transform: translateY(-2px);
+    }
+}
