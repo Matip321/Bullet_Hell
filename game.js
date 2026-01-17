@@ -103,7 +103,7 @@ function stopGame() {
   cancelAnimationFrame(animationReq);
   ui.menu.style.display = 'flex';
   ui.startSection.style.display = 'none';
-  ui.gameOverSection.style.display = 'block';
+  ui.gameOverSection.style.display = 'flex';
   ui.finalScore.innerText = score;
   updateLeaderboard();
 }
